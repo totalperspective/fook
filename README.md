@@ -16,7 +16,7 @@ Fook is a collection of functions that enable you to work with Datomic more easi
 
 ### Queries
 
-This `fook.query` namespace enables you to easily manipulate queries.
+The `fook.query` namespace enables you to easily manipulate queries.
 
 ```clojure
 
@@ -134,9 +134,12 @@ This `fook.query` namespace enables you to easily manipulate queries.
 
 ### Transactions
 
+The `fook.tx` namespace makes working with transactions easier.
+
+
 ### Schema
 
-Provides a shorthand way of defining schemas.
+The `foo.schema` namespace provides a shorthand way of defining schemas.
 
 ```clojure
 
@@ -192,6 +195,8 @@ Provides a shorthand way of defining schemas.
 
 ### Unification
 
+The `fook.unify` namespace provides multiple ways of unifying the
+various datomic data structures with each other.
 
 ## License
 
