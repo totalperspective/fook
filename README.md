@@ -1,9 +1,13 @@
 # Fook
 
 > "O Deep Thought computer," he said, "the task we have designed you to perform is this. We want you to tell us...." he paused, "The Answer."
+
 > "The Answer?" said Deep Thought. "The Answer to what?"
+
 > "Life!" urged Fook.
+
 > "The Universe!" said Lunkwill.
+
 > "Everything!" they said in chorus.
 
 Fook is a collection of functions that enable you to work with Datomic more easily.
