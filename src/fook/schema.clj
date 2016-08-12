@@ -1,7 +1,8 @@
 (ns fook.schema
   (:require [datomic.api :as d]
             [taoensso.truss :refer [have]]
-            [clojure.core.match :refer [match]]))
+            [clojure.core.match :refer [match]]
+            [fook.tx :as tx]))
 
 (def default-attrs
   {:db/cardinality :db.cardinality/one
@@ -32,15 +33,10 @@
       (assoc attr :db/valueType value-type)
       attr)))
 
-(defn add-id [attr part]
-  (if (:db/id (have map? attr))
-    attr
-    (assoc attr :db/id (d/tempid part))))
-
 (defn attr [x]
   (have [:or map? sequential?] x)
   (cond
-    (map? x) (add-id (merge default-attrs x) :db.part/db)
+    (map? x) (tx/add-id (merge default-attrs x) :db.part/db)
     (sequential? x) (attr (apply make-attr x))))
 
 (defn attr-ns [ns & attrs]

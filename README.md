@@ -143,14 +143,16 @@ your project to generate temp ids.
 
 ```clojure
 
-(fook.schema/schema
- [[:foo :string :index]
-  [:foo/bar :ref :many]
-  [:foo/baz :uuid :identity]]
- (fook.schema/attr-ns :ns
-                      [:foo :string "This is a string" :index]
-                      [:foo/bar :ref :component]
-                      [:foo/baz :uuid :unique]))
+(fook.tx/with-tempid
+  datomic.api/tempid
+  (fook.schema/schema
+   [[:foo :string :index]
+    [:foo/bar :ref :many]
+    [:foo/baz :uuid :identity]]
+   (fook.schema/attr-ns :ns
+                        [:foo :string "This is a string" :index]
+                        [:foo/bar :ref :component]
+                        [:foo/baz :uuid :unique])))
 =>
 ({:db/cardinality :db.cardinality/one,
   :db.install/_attribute :db.part/db,
