@@ -33,6 +33,16 @@
                    order))
       query)))
 
+(defn apply-query
+  [query f & args]
+  (let [q (normalise-query query)
+        m (meta q)]
+    (prn q f args)
+    (-> f
+        (apply q args)
+        (with-meta m)
+        denormalise-query)))
+
 (defn get-query
   "Get part of a query"
   [query k]
@@ -43,15 +53,9 @@
 (defn assoc-query
   "Assoc into a query"
   [query k v]
-  (-> query
-      normalise-query
-      (assoc k v)
-      denormalise-query))
+  (apply-query query assoc k v))
 
 (defn dissoc-query
   "Dissoc from a query"
   [query k]
-  (-> query
-      normalise-query
-      (dissoc k)
-      denormalise-query))
+  (apply-query query dissoc k))
