@@ -59,13 +59,12 @@ This `fook.query` namespace enables you to easily manipulate queries.
  [?release :release/name ?name]
  [?release :release/artists ?artist]]
 
-comment
 (fook.query/get-query
  '[:find [?name ...]
    :in $ ?artist
    :where [?release :release/name ?name]
    [?release :release/artists ?artist]] :in)
-
+=>
 ($ ?artist)
 
 (fook.query/assoc-query
@@ -109,13 +108,12 @@ comment
  [?release :release/name ?name]
  [?release :release/artists ?artist]]
 
-(fook.query/apply-query
+(fook.query/update-query
  '[:find [?name ...]
    :in $ ?artist
    :where
    [?release :release/name ?name]
    [?release :release/artists ?artist]]
- update
  :find
  (comp vector ffirst))
 =>

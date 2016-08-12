@@ -59,3 +59,8 @@
   "Dissoc from a query"
   [query k]
   (apply-query query dissoc k))
+
+(defn update-query
+  "Dissoc from a query"
+  [query k f]
+  (apply-query query update k f))
