@@ -136,6 +136,58 @@ This `fook.query` namespace enables you to easily manipulate queries.
 
 ### Schema
 
+Provides a shorthand way of defining schemas.
+
+```clojure
+
+(fook.schema/schema
+ [[:foo :string :index]
+  [:foo/bar :ref :many]
+  [:foo/baz :uuid :identity]]
+ (fook.schema/attr-ns :ns
+                      [:foo :string "This is a string" :index]
+                      [:foo/bar :ref :component]
+                      [:foo/baz :uuid :unique]))
+=>
+({:db/cardinality :db.cardinality/one,
+  :db.install/_attribute :db.part/db,
+  :db/ident :ns.foo/baz,
+  :db/unique :db.unique/value,
+  :db/valueType :db.type/uuid,
+  :db/id {:part :db.part/db, :idx -1000037}}
+ {:db/cardinality :db.cardinality/one,
+  :db.install/_attribute :db.part/db,
+  :db/ident :ns.foo/bar,
+  :db/isComponent true,
+  :db/valueType :db.type/ref,
+  :db/id {:part :db.part/db, :idx -1000036}}
+ {:db/cardinality :db.cardinality/one,
+  :db.install/_attribute :db.part/db,
+  :db/ident :ns/foo,
+  :db/doc "This is a string",
+  :db/index true,
+  :db/valueType :db.type/string,
+  :db/id {:part :db.part/db, :idx -1000032}}
+ {:db/cardinality :db.cardinality/one,
+  :db.install/_attribute :db.part/db,
+  :db/ident :foo,
+  :db/index true,
+  :db/valueType :db.type/string,
+  :db/id {:part :db.part/db, :idx -1000033}}
+ {:db/cardinality :db.cardinality/many,
+  :db.install/_attribute :db.part/db,
+  :db/ident :foo/bar,
+  :db/valueType :db.type/ref,
+  :db/id {:part :db.part/db, :idx -1000034}}
+ {:db/cardinality :db.cardinality/one,
+  :db.install/_attribute :db.part/db,
+  :db/ident :foo/baz,
+  :db/unique :db.unique/identity,
+  :db/valueType :db.type/uuid,
+  :db/id {:part :db.part/db, :idx -1000035}})
+
+```
+
 ### Unification
 
 
