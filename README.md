@@ -138,6 +138,9 @@ This `fook.query` namespace enables you to easily manipulate queries.
 
 Provides a shorthand way of defining schemas.
 
+NOTE: This currently requires you to have datomic as a dependency of
+your project to generate temp ids.
+
 ```clojure
 
 (fook.schema/schema
