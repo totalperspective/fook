@@ -1,5 +1,6 @@
 (ns fook.query
-  (:require [clojure.set :as set]))
+  (:require [clojure.set :as set]
+            [taoensso.truss :refer [have]]))
 
 (defn normalise-query
   "Returns the map form of a datalog query. Annotates the metadata with
@@ -8,7 +9,7 @@
   (if (map? query)
     (with-meta query {::type :map})
     (let [pairs (partition-by keyword? query)]
-      (assert (even? (count pairs)))
+      (have even? (count pairs))
       (let [items (partition 2 pairs)
             query-map (into {} (map (juxt ffirst second)) items)
             order (into [] (map ffirst items))]
