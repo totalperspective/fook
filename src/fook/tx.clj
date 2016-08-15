@@ -51,7 +51,7 @@
     [e (or (:db/ident attr) a) v t op]))
 
 (defn get-attrs
-  "Given a sequnce of datoms, returns a lazy sequence of datoms with
+  "Given db and a sequence of datoms, returns a lazy sequence of datoms with
   their attribute names looked up in db"
-  [db tx-data]
-  (map (partial get-attr db) tx-data))
+  [db datoms]
+  (map (partial get-attr db) datoms))
