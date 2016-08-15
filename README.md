@@ -249,6 +249,27 @@ The `fook.schema` namespace provides a shorthand way of defining schemas.
 The `fook.unify` namespace provides multiple ways of unifying the
 various datomic data structures with each other.
 
+
+```clojure
+(fook.unify/unify-result
+ '[:find ?artist-name ?release-name
+   :where [?release :release/name ?release-name]
+   [?release :release/artists ?artist]
+   [?artist :artist/name ?artist-name]]
+ #{["George Jones" "With Love"] 
+   ["Shocking Blue" "Hello Darkness / Pickin' Tomatoes"] 
+   ["Junipher Greene" "Friendship"]
+   ...}
+ '{:name ?artist-name
+   :release ?release-name})
+=>
+({:name "George Jones", :release "With Love"}
+ {:name "Shocking Blue", :release "Hello Darkness / Pickin' Tomatoes"}
+ {:name "Junipher Greene", :release "Friendship"}
+ ...)
+
+
+```
 ## License
 
 Copyright © 2016 Bahul Neel Upadhyaya
