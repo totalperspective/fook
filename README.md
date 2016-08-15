@@ -74,7 +74,7 @@ The `fook.query` namespace enables you to easily manipulate queries.
 
 (fook.query/assoc-query
  '[:find [?name ...]
-   :in $
+   :in $ ?artist
    :where 
    [?release :release/name ?name]
    [?release :release/artists ?artist]]
@@ -82,7 +82,7 @@ The `fook.query` namespace enables you to easily manipulate queries.
  '[$])
 =>
 [:find [?name ...]
- :in $ ?artist
+ :in $
  :where
  [?release :release/name ?name]
  [?release :release/artists ?artist]]
