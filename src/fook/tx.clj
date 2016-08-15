@@ -48,8 +48,10 @@
   [db datom]
   (let [[e a v t op] datom
         attr (entity db a)]
-    [e (:db/ident attr) v t op]))
+    [e (or (:db/ident attr) a) v t op]))
 
 (defn get-attrs
+  "Given a sequnce of datoms, returns a lazy sequence of datoms with
+  their attribute names looked up in db"
   [db tx-data]
   (map (partial get-attr db) tx-data))
