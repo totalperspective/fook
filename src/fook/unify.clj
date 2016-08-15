@@ -3,7 +3,7 @@
             [clojure.core.unify :as u]))
 
 (defn unify-result
-  "Given a query, result a form structure unify the result with tha form."
+  "Given a query, result and a form, unify the result with tha form."
   [query result form]
   (let [{:keys [find]} (q/normalise-query query)
         bindings (map (partial zipmap find) result)]
