@@ -190,7 +190,7 @@ The `fook.tx` namespace makes working with transactions easier.
 
 ### Schema
 
-The `foo.schema` namespace provides a shorthand way of defining schemas.
+The `fook.schema` namespace provides a shorthand way of defining schemas.
 
 ```clojure
 
