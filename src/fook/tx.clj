@@ -1,6 +1,5 @@
 (ns fook.tx
-  (:require [taoensso.truss :refer [have]]
-            [datomic.api :as d]))
+  (:require [taoensso.truss :refer [have]]))
 
 (def ^:dynamic *tempid* nil)
 
