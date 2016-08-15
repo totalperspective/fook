@@ -136,6 +136,57 @@ The `fook.query` namespace enables you to easily manipulate queries.
 
 The `fook.tx` namespace makes working with transactions easier.
 
+```clojure
+(fook.tx/with-tempid
+  datomic.api/tempid
+  (fook.tx/add-id {:foo "bar"}
+                  :db.part/user))
+=>
+{:foo "bar",
+ :db/id #db/id[:db.part/user -1000048]}
+
+(fook.tx/with-tempid
+  datomic.api/tempid
+  (fook.tx/add-id {:foo "bar"
+                   :db/id (datomic.api/tempid :db.part/user -1)}
+                  :db.part/user))
+=>
+{:foo "bar",
+ :db/id #db/id[:db.part/user -1]}
+
+(fook.tx/with-tempid
+  datomic.api/tempid
+  (fook.tx/add-id {:foo "bar"
+                   :db/id [:db.part/user -2]}
+                  nil))
+=>
+{:foo "bar",
+ :db/id #db/id[:db.part/user -2]}
+
+(fook.tx/with-tempid
+  datomic.api/tempid
+  (fook.tx/add-id {:foo "bar"
+                   :db/id [:db.part/user]}
+                  nil))
+=>
+{:foo "bar", :db/id #db/id[:db.part/user -1000049]}
+
+
+(fook.tx/with-entity
+  datomic.api/entity
+  (doall (fook.tx/get-attrs db (take 10 (d/datoms db :eavt)))))
+=>
+([0 :db/ident :db.part/db 13194139533312 true]
+ [0 :db.install/partition 0 13194139533366 true]
+ [0 :db.install/partition 3 13194139533366 true]
+ [0 :db.install/partition 4 13194139533366 true]
+ [0 :db.install/valueType 20 13194139533366 true]
+ [0 :db.install/valueType 21 13194139533366 true]
+ [0 :db.install/valueType 22 13194139533366 true]
+ [0 :db.install/valueType 23 13194139533366 true]
+ [0 :db.install/valueType 24 13194139533366 true]
+ [0 :db.install/valueType 25 13194139533366 true])
+```
 
 ### Schema
 

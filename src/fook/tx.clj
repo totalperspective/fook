@@ -1,5 +1,6 @@
 (ns fook.tx
-  (:require [taoensso.truss :refer [have]]))
+  (:require [taoensso.truss :refer [have]]
+            [datomic.api :as d]))
 
 (def ^:dynamic *tempid* nil)
 
@@ -39,10 +40,16 @@
   (*entity* db eid))
 
 (defn add-id
-  ([e part]
-   (if (:db/id (have map? e))
-     e
-     (assoc e :db/id (tempid part)))))
+  ([e default-part]
+   (if-let [id (:db/id (have map? e))]
+     (if (sequential? id)
+       (let [[part n] id
+             id (if n
+                  (tempid part n)
+                  (tempid part) )]
+         (assoc e :db/id id))
+       e)
+     (assoc e :db/id (tempid default-part)))))
 
 (defn get-attr
   [db datom]
