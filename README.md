@@ -268,6 +268,20 @@ various datomic data structures with each other.
  {:name "Junipher Greene", :release "Friendship"}
  ...)
 
+(fook.unify/unify-query
+ '[:find ?x ?y
+   :where
+   [?p :parent/x ?x]
+   [?p :parent/y ?z]
+   [?a :ancestor/x ?z]
+   [?a :ancestor/y ?y]]
+ [[1 :parent/x :a 3 true]
+  [1 :parent/y :b 3 true]
+  [2 :parent/x :c 3 true]
+  [2 :parent/y :d 3 true]])
+=>
+#{{?p 2, ?x :c, ?z :d}
+  {?p 1, ?x :a, ?z :b}}
 
 ```
 ## License
