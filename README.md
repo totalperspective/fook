@@ -1,3 +1,5 @@
+[![Clojars Project](https://img.shields.io/clojars/v/totalperspective/fook.svg)](https://clojars.org/totalperspective/fook)
+
 # Fook
 
 > "O Deep Thought computer," he said, "the task we have designed you to perform is this. We want you to tell us...." he paused, "The Answer."
