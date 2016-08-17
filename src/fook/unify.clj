@@ -59,10 +59,12 @@
   (let [clause (first clauses)
         datom (first datoms)]
     (if (and clause datom)
-      (let [subst' (u/unify datom clause)]
+      (let [subst' (u/unify datom clause subst)]
         (if subst'
-          (unify-clauses (rest clauses) (rest datoms) subst')
-          (unify-clauses (rest clauses) datoms subst)))
+          (let [subst' (unify-clauses clauses (rest datoms) subst')]
+            (recur (rest clauses) datoms subst'))
+          (let [subst' (unify-clauses (rest clauses) datoms subst)]
+            (recur clauses (rest datoms) subst'))))
       subst)))
 
 (defn unify-query
@@ -71,10 +73,8 @@
   ([query datoms]
    (let [{:keys [where]} (q/normalise-query query)
          clauses (expand-clauses where)]
-     (loop [datoms datoms substs #{}]
-       (if (seq datoms)
-         (let [subst (unify-clauses clauses datoms {})]
-           (if subst
-             (recur (rest datoms) (conj substs subst))
-             (recur (rest datoms) substs)))
-         substs)))))
+     (->> datoms
+          (group-by first)
+          (map second)
+          (map #(unify-clauses clauses % {}))
+          (into #{})))))
