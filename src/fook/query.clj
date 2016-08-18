@@ -38,7 +38,6 @@
   [query f & args]
   (let [q (normalise-query query)
         m (meta q)]
-    (prn q f args)
     (-> f
         (apply q args)
         (with-meta m)
