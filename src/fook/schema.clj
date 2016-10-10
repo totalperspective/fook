@@ -35,19 +35,22 @@
 
 (defn attr [x]
   (have [:or map? sequential?] x)
-  (cond
-    (map? x) (tx/add-id (merge default-attrs x) :db.part/db)
-    (sequential? x) (attr (apply make-attr x))))
+  (with-meta
+    (cond
+      (map? x) (tx/add-id (merge default-attrs x) :db.part/db)
+      (sequential? x) (attr (apply make-attr x)))
+    (meta x)))
 
 (defn attr-ns [ns & attrs]
-  (map (fn [[ident & args]]
-         (let [ident-ns (namespace ident)
+  (map (fn [s]
+         (let [[ident & args] s
+               ident-ns (namespace ident)
                ns-name (name ns)
                ns (if ident-ns
                     (str ns-name "." ident-ns)
                     ns-name)
                ident (keyword ns (name ident))]
-           (apply vector ident args)))
+           (with-meta (apply vector ident args) (meta s))))
        attrs))
 
 (defn schema
