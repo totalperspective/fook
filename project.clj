@@ -1,4 +1,4 @@
-(defproject totalperspective/fook "0.2.5"
+(defproject totalperspective/fook "0.2.6"
   :description "Small utilities for datomic"
   :url "http://github.com/totalperspective/fook"
   :license {:name "Eclipse Public License"
