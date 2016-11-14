@@ -40,12 +40,13 @@
 
 (defn add-id
   ([e default-part]
-   (if-let [id (:db/id (have map? e))]
+   (have map? e)
+   (if-let [id (:db/id e)]
      (if (sequential? id)
        (let [[part n] id
              id (if n
                   (tempid part n)
-                  (tempid part) )]
+                  (tempid part))]
          (assoc e :db/id id))
        e)
      (assoc e :db/id (tempid default-part)))))
