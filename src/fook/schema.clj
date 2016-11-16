@@ -37,6 +37,7 @@
   (have [:or map? sequential?] x)
   (with-meta
     (cond
+      (:db/id x) x
       (map? x) (tx/add-id (merge default-attrs x) :db.part/db)
       (sequential? x) (attr (apply make-attr x)))
     (meta x)))
@@ -52,6 +53,16 @@
                ident (keyword ns (name ident))]
            (with-meta (apply vector ident args) (meta s))))
        attrs))
+
+(defn ident
+  [n]
+  [(tx/add-id {:db/ident n} :db.part/db)])
+
+(defn part
+  [n]
+  (let [is (ident n)]
+    (map #(assoc % :db.install/_partition :db.part/db)
+         is)))
 
 (defn schema
   ([s]
